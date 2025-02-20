@@ -67,7 +67,7 @@ pub(crate) fn check(
     };
 
     let start = Instant::now();
-    let diagnostics_per_file = paths.par_iter().filter_map(|resolved_file| {
+    let diagnostics_per_file = paths.iter().filter_map(|resolved_file| {
         let result = match resolved_file {
             Ok(resolved_file) => {
                 let path = resolved_file.path();
@@ -158,14 +158,10 @@ pub(crate) fn check(
     // This can't be a regular for loop because we use `par_iter`.
     let (mut all_diagnostics, checked_files) = diagnostics_per_file
         .fold(
-            || (Diagnostics::default(), 0u64),
+            (Diagnostics::default(), 0u64),
             |(all_diagnostics, checked_files), file_diagnostics| {
                 (all_diagnostics + file_diagnostics, checked_files + 1)
             },
-        )
-        .reduce(
-            || (Diagnostics::default(), 0u64),
-            |a, b| (a.0 + b.0, a.1 + b.1),
         );
 
     all_diagnostics.messages.sort();

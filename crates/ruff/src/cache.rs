@@ -54,9 +54,8 @@ impl FileCacheKey {
             use std::os::unix::fs::PermissionsExt;
             metadata.permissions().mode()
         };
-        #[cfg(windows)]
+        #[cfg(any(windows, target_os = "wasi"))]
         let permissions: u32 = metadata.permissions().readonly().into();
-
         Ok(FileCacheKey {
             file_last_modified: FileTime::from_last_modification_time(&metadata),
             file_permissions_mode: permissions,

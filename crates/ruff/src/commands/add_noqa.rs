@@ -44,7 +44,7 @@ pub(crate) fn add_noqa(
 
     let start = Instant::now();
     let modifications: usize = paths
-        .par_iter()
+        .iter()
         .flatten()
         .filter_map(|resolved_file| {
             let SourceType::Python(source_type @ (PySourceType::Python | PySourceType::Stub)) =

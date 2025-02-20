@@ -2,7 +2,7 @@ use std::io::{self, BufWriter, Write};
 use std::process::{ExitCode, Termination};
 
 use anyhow::Result;
-use std::sync::Mutex;
+// use std::sync::Mutex;
 
 use crate::args::{Args, CheckCommand, Command};
 use crate::logging::setup_tracing;
@@ -104,17 +104,17 @@ fn run_check(args: CheckCommand) -> anyhow::Result<ExitStatus> {
 
     let mut db = ProjectDatabase::new(project_metadata, system)?;
 
-    let (main_loop, main_loop_cancellation_token) = MainLoop::new(cli_options);
+    let (main_loop, _main_loop_cancellation_token) = MainLoop::new(cli_options);
 
     // Listen to Ctrl+C and abort the watch mode.
-    let main_loop_cancellation_token = Mutex::new(Some(main_loop_cancellation_token));
-    ctrlc::set_handler(move || {
-        let mut lock = main_loop_cancellation_token.lock().unwrap();
+    // let main_loop_cancellation_token = Mutex::new(Some(main_loop_cancellation_token));
+    // ctrlc::set_handler(move || {
+    //     let mut lock = main_loop_cancellation_token.lock().unwrap();
 
-        if let Some(token) = lock.take() {
-            token.stop();
-        }
-    })?;
+    //     if let Some(token) = lock.take() {
+    //         token.stop();
+    //     }
+    // })?;
 
     let exit_status = if watch {
         main_loop.watch(&mut db)?
@@ -297,11 +297,11 @@ struct MainLoopCancellationToken {
     sender: crossbeam_channel::Sender<MainLoopMessage>,
 }
 
-impl MainLoopCancellationToken {
-    fn stop(self) {
-        self.sender.send(MainLoopMessage::Exit).unwrap();
-    }
-}
+// impl MainLoopCancellationToken {
+//     fn stop(self) {
+//         self.sender.send(MainLoopMessage::Exit).unwrap();
+//     }
+// }
 
 /// Message sent from the orchestrator to the main loop.
 #[derive(Debug)]

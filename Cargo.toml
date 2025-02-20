@@ -146,7 +146,7 @@ static_assertions = "1.1.0"
 strum = { version = "0.27.0", features = ["strum_macros"] }
 strum_macros = { version = "0.27.0" }
 syn = { version = "2.0.55" }
-tempfile = { version = "3.9.0" }
+tempfile = { version = "3.9.0", features = ["nightly"] }
 test-case = { version = "3.3.1" }
 thiserror = { version = "2.0.0" }
 tikv-jemallocator = { version = "0.6.0" }
@@ -326,3 +326,9 @@ github-custom-job-permissions = { "build-docker" = { packages = "write", content
 install-updater = false
 # Path that installers should place binaries in
 install-path = ["$XDG_BIN_HOME/", "$XDG_DATA_HOME/../bin", "~/.local/bin"]
+
+
+[patch.crates-io]
+os_str_bytes = { git = "https://github.com/Timmmm/os_str_bytes.git", branch = "patch-1" }
+ignore = { git = "https://github.com/Timmmm/ripgrep.git", branch = "user/timh/wasi" }
+walkdir = { git = "https://github.com/Timmmm/walkdir.git", branch = "user/timh/wasi" }
