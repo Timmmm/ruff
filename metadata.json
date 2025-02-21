@@ -1,0 +1,17 @@
+{
+    "max_filenames": 1000,
+    "require_serial": false,
+    "args": ["format", "--no-cache"],
+    "default_match": {
+        "Or": [
+            {
+                "ShebangRegex": ".*python.*"
+            },
+            {
+                "Glob": "*.py"
+            }
+        ]
+    },
+    "repo": "https://github.com/timmmm/ruff",
+    "attestation": ""
+}
