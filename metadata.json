@@ -1,17 +1,34 @@
 {
+    "argv0": "ruff",
     "max_filenames": 1000,
     "require_serial": false,
-    "args": ["format", "--no-cache"],
+    "args": [
+        {
+            "name": "command",
+            "args": ["format"]
+        },
+        {
+            "name": "default_args",
+            "args": ["--no-cache"]
+        },
+        {
+            "name": "extra_args",
+            "args": []
+        },
+        {
+            "name": "separator",
+            "args": ["--"]
+        }
+    ],
     "default_match": {
-        "Or": [
+        "or": [
             {
-                "ShebangRegex": ".*python.*"
+                "shebang_regex": ".*python.*"
             },
             {
-                "Glob": "*.py"
+                "glob": "*.py"
             }
         ]
     },
-    "repo": "https://github.com/timmmm/ruff",
-    "attestation": ""
+    "repo": "https://github.com/timmmm/ruff"
 }
