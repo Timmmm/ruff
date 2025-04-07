@@ -236,6 +236,7 @@ large_stack_arrays = "allow"
 # [1]: https://github.com/astral-sh/ruff/pull/9031
 lto = "thin"
 codegen-units = 16
+strip = "debuginfo"
 
 # Some crates don't change as much but benefit more from
 # more expensive optimization passes, so we selectively
